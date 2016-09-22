@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+var fs = require('fs');
 var db = require('./models');
 var express = require('express');
 var path = require('path');
@@ -25,6 +26,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.use('/tasks', require('./route'));
+app.get('/swagger', function(req, res) {
+    res.writeHead(200, {
+        "Content-Type": "text/yaml"
+    });
+    fs.readFile('swagger.yaml', "utf8", function(err, data) {
+        if (err) throw err;
+        res.write(data);
+        res.end();
+    });
+});
 
 db.sequelize.sync().then(function () {
     console.log('Database sync complete!');

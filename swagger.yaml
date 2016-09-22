@@ -1,0 +1,86 @@
+swagger: '2.0'
+info:
+  title: Todos API
+  description: Move my todos app with todos api.
+  version: "1.0.0"
+host: todos-api.tonypai.com.tw
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  /tasks:
+    get:
+      tags:
+        - Tasks
+      responses:
+        200:
+          description: An array of tasks
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                title:
+                  type: string
+                done:
+                  type: boolean
+                createdAt:
+                  type: string
+                updatedAt:
+                  type: string
+    post:
+      tags:
+        - Tasks
+      parameters:
+        - name: body
+          in: body
+          description: The task json you want to post
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              done:
+                type: boolean
+          required: true
+      responses:
+        200:
+          description: success
+  /tasks/{id}:
+    put:
+      tags:
+        - Tasks
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              done:
+                type: boolean
+      responses:
+        "200":
+          description: success
+        "400":
+          description: invalid id
+    delete:
+      tags:
+        - Tasks
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: success
+        "400":
+          description: invalid id
