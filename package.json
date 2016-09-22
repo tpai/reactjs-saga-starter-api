@@ -4,7 +4,8 @@
   "description": "Reactjs Saga Starter API - API Server(Node.js, Express, Sequelize.js, MySQL)",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "postinstall": "[ -f .env ] || cp .env.example .env"
   },
   "author": "tonypai",
   "license": "ISC",
